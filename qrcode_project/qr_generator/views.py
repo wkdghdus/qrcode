@@ -7,13 +7,20 @@ import qrcode
 #which is useful for creating in-memory file-like objects to store images temporarily.
 from io import BytesIO
 
-def generate_qr_code(request):
-    # Example data for QR code (replace with actual data from user input later)
-    wifi_ssid = 'YourNetworkSSID'
-    wifi_password = 'YourNetworkPassword'
-    menu_url = 'https://example.com/menu'
+from django.shortcuts import render
 
-    # Construct the data for the QR code (this can include Wi-Fi credentials and menu URL)
+def qr_form(request):
+    #renders the qr_form.html template when the qr_form view is called
+    return render(request, 'qr_generator/qr_form.html')
+
+
+def generate_qr_code(request):
+    # Get the data from the query parameters (URL)
+    wifi_ssid = request.GET.get('ssid', 'DefaultSSID')  # DefaultSSID is used if no input is provided
+    wifi_password = request.GET.get('password', 'DefaultPassword')  # DefaultPassword is used if no input is provided
+    menu_url = request.GET.get('menu_url', 'https://example.com/menu')
+
+    # Construct the data for the QR code (Wi-Fi and URL)
     qr_data = f"WIFI:T:WPA;S:{wifi_ssid};P:{wifi_password};;URL:{menu_url}"
 
     # Generate the QR code

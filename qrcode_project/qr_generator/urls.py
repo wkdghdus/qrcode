@@ -9,4 +9,5 @@ from . import views
 # When this URL is accessed, Django will call generate_qr_code to handle the request.
 urlpatterns = [
     path('generate_qr/', views.generate_qr_code, name='generate_qr_code'),
+    path('form/', views.qr_form, name='qr_form'),
 ]
