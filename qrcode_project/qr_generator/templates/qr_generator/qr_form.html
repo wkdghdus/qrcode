@@ -7,16 +7,16 @@
 </head>
 <body>
     <h1>Generate QR Code for Wi-Fi and Menu</h1>
-    <form action="/qr/generate_qr/" method="get">
-        <label for="ssid">Wi-Fi SSID:</label><br>
-        <input type="text" id="ssid" name="ssid" placeholder="Enter Wi-Fi SSID"><br><br>
-        
-        <label for="password">Wi-Fi Password:</label><br>
-        <input type="text" id="password" name="password" placeholder="Enter Wi-Fi Password"><br><br>
-        
-        <label for="menu_url">Menu URL:</label><br>
-        <input type="url" id="menu_url" name="menu_url" placeholder="Enter Menu URL"><br><br>
-        
+    <form action="/qr/generate_qr/" method="post" enctype="multipart/form-data">
+        <label for="ssid">Wi-Fi SSID (Required):</label><br>
+        <input type="text" id="ssid" name="ssid" placeholder="Enter Wi-Fi SSID" required><br><br>
+
+        <label for="password">Wi-Fi Password (Required):</label><br>
+        <input type="text" id="password" name="password" placeholder="Enter Wi-Fi Password" required><br><br>
+
+        <label for="menu_file">Upload Menu (Optional):</label><br>
+        <input type="file" id="menu_file" name="menu_file" accept="application/pdf,image/*"><br><br>
+
         <button type="submit">Generate QR Code</button>
     </form>
 </body>
