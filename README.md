@@ -75,5 +75,3 @@ python manage.py collectstatic
 ```bash
 gunicorn qrcode_project.wsgi:application
 ```
-
-```
