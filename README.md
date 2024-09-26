@@ -53,25 +53,3 @@ qrcode_project/
 ├── manage.py
 └── requirements.txt     # Python package dependencies
 ```
-
-## Deployment
-
-### 1. Setup on a Production Server (e.g., AWS, Heroku)
-- You will need to set `DEBUG=False` in `settings.py` for production.
-- Use `WhiteNoise` to serve static and media files or configure your server to handle them.
-- Ensure you have proper security settings in `settings.py` (e.g., allowed hosts).
-
-### 2. Install dependencies and set up the environment
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Collect static files (for production)
-```bash
-python manage.py collectstatic
-```
-
-### 4. Run the project with a production-ready server (like Gunicorn)
-```bash
-gunicorn qrcode_project.wsgi:application
-```
