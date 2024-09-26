@@ -11,9 +11,14 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Media files (for uploaded user files like PDFs, images)
+MEDIA_URL = '/media/'  # URL that will serve media files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Directory to store uploaded files
 
 #Allow all domains to access the backend during development 
 CORS_ALLOW_ALL_ORIGINS = True

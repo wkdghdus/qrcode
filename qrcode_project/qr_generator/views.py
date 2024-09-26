@@ -7,8 +7,6 @@ import qrcode
 #which is useful for creating in-memory file-like objects to store images temporarily.
 from io import BytesIO
 
-import os
-
 from django.core.files.storage import FileSystemStorage
 
 from django.shortcuts import render
@@ -17,28 +15,30 @@ def qr_form(request):
     #renders the qr_form.html template when the qr_form view is called
     return render(request, 'qr_generator/qr_form.html')
 
-
 def generate_qr_code(request):
     if request.method == 'POST':
         wifi_ssid = request.POST.get('ssid')
         wifi_password = request.POST.get('password')
         menu_file = request.FILES.get('menu_file')
 
-        # Check for missing fields
+        # Validate inputs
         if not wifi_ssid:
             return HttpResponse("Error: Wi-Fi SSID is required.", status=400)
         if not wifi_password:
             return HttpResponse("Error: Wi-Fi Password is required.", status=400)
 
-        # Save the uploaded menu file if it exists
+        # If a file is uploaded, save it and create the file URL
         if menu_file:
             fs = FileSystemStorage()
             filename = fs.save(menu_file.name, menu_file)
             file_url = fs.url(filename)
         else:
-            file_url = "No file uploaded"
+            file_url = request.POST.get('menu_url')  # If no file, use the URL
 
-        # Construct the QR code data (you may need to customize this for file URLs)
+        if not file_url:
+            return HttpResponse("Error: Either a file or a menu URL is required.", status=400)
+
+        # Construct the QR code data (you may want to customize this)
         qr_data = f"WIFI:T:WPA;S:{wifi_ssid};P:{wifi_password};;URL:{file_url}"
         qr = qrcode.QRCode(
             version=1,
